@@ -14,13 +14,16 @@ Provide both mobile and web clients to cover the most usual needs of modern appl
 
 ### Client <-> Public API
 - Probably will be JSON over HTTP 1.1 for compatability reasons.
+- Maybe also gRPC, possibly through grpc-gateway project.
 - Sessions/auth via JWTs.
 
 ### Public API (Perimeter)
 Should provide a single entrypoint, both for simplicity of clients and to minimize attack surface.  Should handle authN/Z, ratelimiting and such, everything to keep internal services as light weight as possible. Sometimes even just proxy requests to internal services.
 
-### Public API <->Internal services & Internal services <-> Internal services
+### Public API <-> Internal services & Internal services <-> Internal services
 gRPC (http2 with protobuf) payloads to reduce the additional cost of decoupling and spending time on the network between services instead of within app bounds (in a monolithic architecture). gRPC is also natively language independent.
+- Encrypted communication via mutual TLS
+- Possibly signed JWTs to grant/limit access to services and know more about the receiving part
 
 ### Internal services
 Should be kept as small as possible, avoiding unneccesary abstractions and many layers. Possibly tested via it's exposed gRPC API instead of e.g. unit testing to keep implementations even simpler. Should fit in your head as Dan North should have said.
