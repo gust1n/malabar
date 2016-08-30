@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+// A point is a pair of latitude and longitude
+message Point {
+	int32 latitude = 1;
+	int32 longitude = 2;
+}
+
+message User {
+	int32 userID = 1;
+}
+
+service LocationService {
+	rpc TrackUser(User) returns (stream Point) {}
+}
