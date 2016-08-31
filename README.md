@@ -12,6 +12,13 @@ Provide a fast, secure and not too hard way of decoupling responsibilities and m
 ### Clients
 Provide both mobile and web clients to cover the most usual needs of modern applications. Use a shared node client core which is then deployed to iOS/Android via react native and web via some node webserver (probably Express).
 
+#### Mobile clients
+Built with React Native.
+
+*Take one*
+Tried to connect a RN application straight to a backing gRPC service. Didn't work, apparently RN is not node (duh) and gRPC node module needs some dependencies (e.g. path) that doesn't exist in RN land. Refs [Github](https://github.com/grpc/grpc/issues/7038) & [Stack overflow](http://stackoverflow.com/questions/36203549/grpc-on-react-native). It still might work though if I use the native gRPC clients for each platform but that would defeat the purpose of sharing logic in the first place. I
+guess I need to find out how much RN and node deviates to see if there is any idea in sharing logic between web and mobile clients.
+
 ### Client <-> Public API
 - Probably will be JSON over HTTP 1.1 for compatability reasons.
 - Maybe also gRPC, possibly through grpc-gateway project.
